@@ -1,0 +1,30 @@
+{
+  "name": "travel-agency",
+  "version": "1.0.0",
+  "description": "Your clarity. One trip away. We create soul restoring journeys that inspire you to be you. ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WendK/travel-agency.git"
+  },
+  "keywords": [
+    "travel",
+    "planning",
+    "bundles",
+    "escapes",
+    "affordable"
+  ],
+  "author": "WendK",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/WendK/travel-agency/issues"
+  },
+  "homepage": "https://github.com/WendK/travel-agency#readme",
+  "dependencies": {
+    "jquery": "^3.3.1",
+    "normalize.css": "^8.0.1"
+  }
+}
