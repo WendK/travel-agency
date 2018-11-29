@@ -1,6 +1,53 @@
 @import "normalize.css";
-@import "base/_global";
 @import "base/_variables";
 @import "base/_mixins";
+@import "base/_global";
 @import "modules/_large-hero";
 @import "modules/_btn";
+@import "modules/_wrapper";
+@import "modules/_page-section";
+@import "modules/_headline";
+@import "modules/_row";
+@import "modules/_small-hero";
+@import "modules/_generic-content-container";
+
+
+
+/*
+gulp.task('scripts', function() {
+    return gulp.src(['./src/js/**/  /*.js'])
+        //.pipe(jshint('.jshintrc'))
+        //.pipe(jshint.reporter('default'))
+        .pipe(plumber())
+        .pipe(order([
+          "zepto.js",
+          "app.js"
+        ]))
+        .pipe(concat('app.js'))
+        .pipe(gulp.dest('dist/js'))
+        .pipe(rename({
+            suffix: '.min'
+        }))
+        .pipe(uglify())
+        .pipe(gulp.dest('dist/js'))
+        .pipe(browserSync.reload({
+            stream: true
+        }));
+});
+
+// Optimizes the images that exists
+gulp.task('images', function() {
+    return gulp.src('src/images/**')
+        .pipe(changed('dist/images'))
+        .pipe(imagemin({
+            // Lossless conversion to progressive JPGs
+            progressive: true,
+            // Interlace GIFs for progressive rendering
+            interlaced: true
+        }))
+        .pipe(gulp.dest('dist/images'))
+        .pipe(size({
+            title: 'images'
+        }));
+});
+*/

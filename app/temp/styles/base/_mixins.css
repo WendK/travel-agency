@@ -1,38 +1,5 @@
-@define-mixin atSmall {
-	@media (min-width: 530px) {
-		@mixin-content;
-	}
-}
-
-@define-mixin atMedium {
-	@media (min-width: 800px) {
-		@mixin-content;
-	}
-}
-
-@define-mixin atLarge {
-	@media (min-width: 1200px) {
-		@mixin-content;
-	}
-}
-
-@define-mixin atLandscape {
-	@media (orientation: landscape) {
-	    @mixin-content;
-	}
-}
-
-@define-mixin clearfix {
-	&::after{
-		content: "";
-		clear: both;
-		display: table;
-	}
-}
-
-
-
 /*Typical Device Breakpoints*/
+
 /*
  Extra small devices (phones, 600px and down) 
 @media only screen and (max-width: 600px) {...} 

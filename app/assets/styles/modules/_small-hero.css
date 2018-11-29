@@ -1,0 +1,10 @@
+.small-hero {
+	
+	&__image {
+
+		@mixin atLandscape {
+			display: block;
+			width: 100%;
+		}
+	}
+}
