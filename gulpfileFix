@@ -1,0 +1,16 @@
+The following tasks did not complete: watch, <series>, cssInject. 
+Did you forget to signal async completion?
+
+Replace: gulp.task('cssInject', gulp.series('styles', injectInit));
+With: gulp.task('cssInject', gulp.series('styles', injectInit, (done) => {done();})());
+
+gulp.watch(paths.html).on('change', gulp.series('reload'));
+gulp.watch(paths.pcss, gulp.series('cssInject'));
+
+
+
+
+npm uninstall gulp-hub
+npm install --save-dev frankwallis/gulp-hub#registry-init
+
+deprecated gulp-util@3.0.8: gulp-util is deprecated - replace it, following the guidelines at https://medium.com/gulpjs/gulp-util-ca3b1f9f9ac5
