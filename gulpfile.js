@@ -9,9 +9,11 @@ var gulp = require('gulp'),
 	nested = require('postcss-nested'),
 	cssImport = require('postcss-import'),
 	mixins = require('postcss-mixins'),
+	webpack = require('webpack'),
 	svgSprite = require('gulp-svg-sprite'),
 	rename = require('gulp-rename'),
-	del = require('del');
+	del = require('del'),
+	hexrgba = require('postcss-hexrgba');
 
 var	config = {
 		mode: {
@@ -30,6 +32,7 @@ var	paths = {
 		pcss: './app/assets/styles/**/*.css',
 		css:  './app/temp/styles',
 	    html: './app/index.html',
+	    appJs: './app/assets/scripts/**/*.js',
 	    svgImg: './app/assets/images/icons/**/*.svg',
 	    spriteTempFold: './app/temp/sprite',
 	    spriteCSS: './app/temp/sprite/css/*.css',
@@ -45,13 +48,13 @@ function reloadInit(done) {
 
 function stylesInit(done) {
 	return gulp.src(paths.pcss)
-		.pipe(postcss([cssImport, mixins, cssvars, nested, autoprefixer]))
+		.pipe(postcss([cssImport, mixins, cssvars, nested, hexrgba, autoprefixer]))
 		.pipe(gulp.dest(paths.css))
 		.pipe(browserSync.stream());
 	done();
 }
 
-function injectInit(done) {
+function stylesInject(done) {
 	return gulp.src(paths.css + 'styles.css');
 	done();
 }
@@ -60,6 +63,17 @@ function cleanInit(done) {
 	return del([paths.spriteTempFold, paths.spriteImgFold]);
 	done();
 }
+
+function scriptsInit(done) {
+	webpack(require('./webpack.config.js'), function webpackInit(err, stats) {
+        if (err) {
+            console.log(err.toString());
+        }
+
+        console.log(stats.toString());
+    });
+	done();
+};
 
 function spriteInit(done) {
 	return gulp.src(paths.svgImg)
@@ -87,8 +101,11 @@ function wrapCleanUp(done) {
 }
 
 gulp.task('reload', reloadInit);
-gulp.task('styles', stylesInit);
-gulp.task('cssInject', gulp.series('styles', injectInit));
+gulp.task('cssCompile', stylesInit);
+gulp.task('cssInject', stylesInject);
+gulp.task('styles', gulp.series('cssCompile', 'cssInject'));
+gulp.task('jsCompile', scriptsInit);
+gulp.task('scripts', gulp.series('jsCompile', 'reload'));
 gulp.task('beginClean', cleanInit);
 gulp.task('createSprite', spriteInit);
 gulp.task('copySpriteGraphic', copySptGraphic);
@@ -106,6 +123,7 @@ gulp.task('watch', function () {
     });
 
 	gulp.watch(paths.html, gulp.series('reload'));
-	gulp.watch(paths.pcss, gulp.series('styles', 'cssInject'));
+	gulp.watch(paths.pcss, gulp.series('styles'));
+	gulp.watch(paths.appJs, gulp.series('scripts'));
 
 });

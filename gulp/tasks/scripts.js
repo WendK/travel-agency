@@ -1,12 +1,33 @@
 var gulp = require('gulp'),
-	browserSync = require('browser-sync').create();
+	browserSync = require('browser-sync').create(),
+    webpack = require('webpack'),
+
+    paths = {
+        appJs: './app/assets/scripts/**/*.js'
+    }; 
+
+function reloadInit(done) {
+    browserSync.reload();
+    done();
+};
 
 function scriptsInit(done) {
-	console.log('Imagine Something Insteresting is Hapenning in JS Files!');
+	webpack(require('../../webpack.config.js'), function webpackInit(err, stats) {
+        if (err) {
+            console.log(err.toString());
+        }
+
+        console.log(stats.toString());
+    });
 	done();
 };
 
-gulp.task('scripts', scriptsInit);
+gulp.task('reload', reloadInit);
+gulp.task('jsCompile', scriptsInit);
+gulp.task('scripts', gulp.series('jsCompile', 'reload', (done) => {done();})());
+
+//gulp.task('scripts', gulp.series('jsCompile', gulp.parallel('reload')));
+//gulp.task('scripts', gulp.series(scriptsInit, gulp.parallel(reloadInit)));
 
 
 /*

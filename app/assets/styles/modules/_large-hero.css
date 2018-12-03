@@ -9,12 +9,17 @@
 	&__text-content {
 		/* Positioning the text on the top of the image */
 		position: absolute;
+		padding-top: 5.5rem;
 		top: 50%;
 		transform: translateY(-50%); /* Centering verticaly*/
 		left: 0;
 		/* Centering horizontaly */
 		width: 100%;
 		text-align: center;
+
+		@mixin atMedium {
+			padding-top: 3.75rem;
+		}
 	}
 
 	&__title {

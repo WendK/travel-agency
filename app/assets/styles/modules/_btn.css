@@ -1,5 +1,3 @@
-@import "../base/_variables";
-
 .btn {
 	background-color: $mainBlue;
 	color: #fff;

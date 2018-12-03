@@ -6,6 +6,7 @@ var gulp = require('gulp'),
 	cssImport = require('postcss-import'),
 	browserSync = require('browser-sync').create(),
 	mixins = require('postcss-mixins'),
+	hexrgba = require('postcss-hexrgba'),
 
 	paths = {
 	    pcss: './app/assets/styles/**/*.css',
@@ -15,16 +16,24 @@ var gulp = require('gulp'),
 
 function stylesInit(done) {
 	return gulp.src(paths.pcss)
-		.pipe(postcss([cssImport, mixins, cssvars, nested, autoprefixer]))
+		.pipe(postcss([cssImport, mixins, cssvars, nested, hexrgba, autoprefixer]))
 		.pipe(gulp.dest(paths.css))
 		.pipe(browserSync.stream());
 	done();
 }
 
-function injectInit(done) {
-	return gulp.src(paths.css + 'styles.css');
+function stylesInject(done) {
+	return gulp.src(paths.css + 'styles.css')
+		.pipe(browserSync.stream());
 	done();
 }
 
-gulp.task('styles', stylesInit);
-gulp.task('cssInject', injectInit);
+gulp.task('cssCompile', stylesInit);
+gulp.task('cssInject', stylesInject);
+gulp.task('styles', gulp.series('cssCompile', 'cssInject', (done) => {done();})());
+
+//gulp.task('styles', gulp.series('cssCompile', 'cssInject'));
+//gulp.task('styles', gulp.series('cssCompile', gulp.parallel('cssInject')));
+//gulp.task('styles', gulp.series(stylesInit, gulp.parallel(stylesInject)));
+
+//gulp.task('cssInject', gulp.series('styles', injectInit, (done) => {done();})());
