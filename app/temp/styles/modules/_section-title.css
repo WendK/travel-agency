@@ -1,35 +1,37 @@
-@import "../base/_variables";
-
 .section-title {
 	font-size: 2.55rem;
 	font-weight: 300;
 	text-align: center;
+}
 
-	@mixin atSmall {
-		font-size: 3.75rem;
+	@media (min-width: 425px) {.section-title {
+		font-size: 3.75rem
+}
 	}
 
-	strong {
+	.section-title strong {
 		font-weight: 500;
 	}
 
-	&--blue {
-		color: $mainBlue;
+	.section-title--blue {
+		color: #2f5572;
 	}
 
-	&__icon {
+	.section-title__icon {
 		display: block;
 		margin-left: auto;
 		margin-right: auto;
 		margin-bottom: .6rem;
+	}
 
-		@mixin atSmall {
+	@media (min-width: 425px) {
+
+	.section-title__icon {
 			position: relative;
 			top: 8px;
 			display: inline-block;
 			margin-left: 0;
 			margin-bottom: 0;
-			margin-right: .5rem;
-		}
+			margin-right: .5rem
 	}
-}
+	}

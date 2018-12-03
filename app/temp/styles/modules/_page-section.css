@@ -2,7 +2,7 @@
 	padding: 1.2rem 0;
 }
 
-	@media (min-width: 800px) {.page-section {
+	@media (min-width: 768px) {.page-section {
 		padding: 4.5rem 0
 }
 	}
@@ -10,4 +10,42 @@
 	.page-section--blue {
 		background-color: #2f5572;
 		color: #fff;
+	}
+
+	.page-section--no-b-padding-until-medium {
+		padding-bottom: .375rem;
+	}
+
+	/*0*/
+
+	@media (min-width: 768px) {
+
+	.page-section--no-b-padding-until-medium {
+			padding-bottom: 4.5rem
+	}
+	}
+
+	.page-section--no-b-padding-until-large {
+		padding-bottom: .375rem;
+	}
+
+	/*0*/
+
+	@media (min-width: 1024px) {
+
+	.page-section--no-b-padding-until-large {
+			padding-bottom: 4.5rem
+	}
+	}
+
+	.page-section--testimonials {
+		background-color: #e0e6ef;
+	}
+
+	@media (min-width: 1024px) {
+
+	.page-section--testimonials {
+			background: url('/assets/images/testimonials-bg.jpg') top center no-repeat;
+			background-size: cover
+	}
 	}

@@ -1,7 +1,16 @@
+@import "../base/_variables";
+
 .primary-nav {
+	padding-top: .625rem;
+
+	@mixin atMedium {
+		padding-top: 0;
+	}
 
 	&--pull-right {
-		float: right;
+		@mixin atMedium {
+			float: right;
+		}
 	}
 
 	ul {
@@ -12,15 +21,35 @@
 
 	li {
 		list-style: none;
-		float: left;
-		padding-right: 1.25rem;
+		display: inline-block;
+		padding-right: .4375rem;
+		@mixin atMedium {
+			padding-right: 1.25rem;
+			float: left;
+			display: block;
+		}
+	}
+
+	li:last-child {
+		padding-right: 0;
+		@mixin atMedium {
+			padding-right: 1.25rem;
+		}
 	}
 
 	a {
 		color: #fff;
 		font-weight: 300;
+		font-size: .8rem;
 		text-decoration: none;
 		display: block;
-		padding: .75rem 0;
+		padding: .3125rem .5rem;
+		background-color: rgba($mainBlue, .5);
+
+		@mixin atMedium {
+			font-size: 1rem;
+			padding: .75rem 0;
+			background-color: transparent;
+		}
 	}
 }

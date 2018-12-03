@@ -1,6 +1,7 @@
 'use strict';
 
 var gulp = require('gulp'),
+	cache = require('gulp-cache'),
 	watch = require('gulp-watch'),
 	browserSync = require('browser-sync').create(),
 	postcss = require('gulp-postcss'),
@@ -30,16 +31,20 @@ var	config = {
 
 var	paths = {
 		pcss: './app/assets/styles/**/*.css',
-		css:  './app/temp/styles',
+		css:  './app/temp/styles/',
 	    html: './app/index.html',
 	    appJs: './app/assets/scripts/**/*.js',
 	    svgImg: './app/assets/images/icons/**/*.svg',
-	    spriteTempFold: './app/temp/sprite',
+	    spriteTempFold: './app/temp/sprite/',
 	    spriteCSS: './app/temp/sprite/css/*.css',
-	    modules: './app/assets/styles/modules',
+	    modules: './app/assets/styles/modules/',
 	    spriteTempImg: './app/temp/sprite/css/**/*.svg',
-	    spriteImgFold: './app/assets/images/sprites'
+	    spriteImgFold: './app/assets/images/sprites/'
 	};
+
+gulp.task('clear', () =>
+    cache.clearAll()
+);
 
 function reloadInit(done) {
 	browserSync.reload();
