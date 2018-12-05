@@ -22,8 +22,7 @@ class RevealOnScroll {
 				handler: function (direction) {
 					if (direction == 'down') {
 						$(currentItem).addClass("reveal-item--is-visible");
-					}
-					if (direction == 'up') {
+					} else  {
 						$(currentItem).removeClass("reveal-item--is-visible");
 					}
 					
