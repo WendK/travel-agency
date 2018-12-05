@@ -4,7 +4,7 @@
 	text-align: center;
 }
 
-	@media (min-width: 425px) {.section-title {
+	@media (min-width: 600px) {.section-title {
 		font-size: 3.75rem
 }
 	}
@@ -17,6 +17,11 @@
 		color: #2f5572;
 	}
 
+	.section-title--less-margin {
+		margin-bottom: 1.3rem;
+		margin-top: 0;
+	}
+
 	.section-title__icon {
 		display: block;
 		margin-left: auto;
@@ -24,7 +29,7 @@
 		margin-bottom: .6rem;
 	}
 
-	@media (min-width: 425px) {
+	@media (min-width: 600px) {
 
 	.section-title__icon {
 			position: relative;

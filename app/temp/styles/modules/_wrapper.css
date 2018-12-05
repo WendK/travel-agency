@@ -11,6 +11,10 @@
 		max-width: 976px;
 	}
 
+	.wrapper--narrow {
+		max-width: 470px;
+	}
+
 	.wrapper .wrapper {
 		padding-left: 0;
 		padding-right: 0;
@@ -20,7 +24,7 @@
 		margin-bottom: 1rem;
 	}
 
-	@media (min-width: 425px) {
+	@media (min-width: 600px) {
 
 	.wrapper--b-margin {
 			margin-bottom: 3.875rem
