@@ -24,10 +24,11 @@ function scriptsInit(done) {
 
 gulp.task('reload', reloadInit);
 gulp.task('jsCompile', scriptsInit);
-gulp.task('scripts', gulp.series('jsCompile', 'reload', (done) => {done();})());
+gulp.task('scripts', gulp.series('modernizr', 'jsCompile', 'reload'));
 
 //gulp.task('scripts', gulp.series('jsCompile', gulp.parallel('reload')));
 //gulp.task('scripts', gulp.series(scriptsInit, gulp.parallel(reloadInit)));
+//gulp.task('scripts', gulp.series('jsCompile', 'reload', (done) => {done();})());
 
 
 /*

@@ -12,13 +12,22 @@ var gulp = require('gulp'),
 	mixins = require('postcss-mixins'),
 	webpack = require('webpack'),
 	svgSprite = require('gulp-svg-sprite'),
+	svg2png = require('gulp-svg2png'),
 	rename = require('gulp-rename'),
 	del = require('del'),
-	hexrgba = require('postcss-hexrgba');
+	hexrgba = require('postcss-hexrgba'),
+	modernizr = require('gulp-modernizr');
 
 var	config = {
 		mode: {
 			css: {
+				variables: {
+					replaceSvgWithPng: function () {
+						return function (sprite, render) {
+							return render(sprite).split('.svg').join('.png');
+						}
+					}
+				},
 				sprite: 'sprite.svg',
 				render: {
 					css: {
@@ -39,7 +48,11 @@ var	paths = {
 	    spriteCSS: './app/temp/sprite/css/*.css',
 	    modules: './app/assets/styles/modules/',
 	    spriteTempImg: './app/temp/sprite/css/**/*.svg',
-	    spriteImgFold: './app/assets/images/sprites/'
+	    pngTempFold: './app/temp/sprite/css/',
+	    pngTempImg: './app/temp/sprite/css/*.png',
+	    graphicsTempImg: './app/temp/sprite/css/**/*.{svg,png}',
+	    spriteImgFold: './app/assets/images/sprites/',
+	    scriptsTempFold: './app/temp/scripts/'
 	};
 
 gulp.task('clear', () =>
@@ -87,8 +100,15 @@ function spriteInit(done) {
 	done();
 }
 
-function copySptGraphic(done) {
+function pngInit(done) {
 	return gulp.src(paths.spriteTempImg)
+		.pipe(svg2png())
+		.pipe(gulp.dest(paths.pngTempFold));
+	done();
+}
+
+function copySpritePngGraphics(done) {
+	return gulp.src(paths.graphicsTempImg)
 		.pipe(gulp.dest(paths.spriteImgFold));
 	done();
 }
@@ -105,18 +125,31 @@ function wrapCleanUp(done) {
 	done();
 }
 
+function modernizrInit(done) {
+	return gulp.src([paths.pcss, paths.appJs])
+		.pipe(modernizr({
+			"options": [
+				"setClasses"
+			]
+		}))
+		.pipe(gulp.dest(paths.scriptsTempFold));
+	done();
+}
+
 gulp.task('reload', reloadInit);
 gulp.task('cssCompile', stylesInit);
 gulp.task('cssInject', stylesInject);
 gulp.task('styles', gulp.series('cssCompile', 'cssInject'));
 gulp.task('jsCompile', scriptsInit);
-gulp.task('scripts', gulp.series('jsCompile', 'reload'));
+gulp.task('modernizr', modernizrInit);
+gulp.task('scripts', gulp.series('modernizr', 'jsCompile', 'reload'));
 gulp.task('beginClean', cleanInit);
 gulp.task('createSprite', spriteInit);
-gulp.task('copySpriteGraphic', copySptGraphic);
+gulp.task('CreatePngFromSvg', pngInit);
+gulp.task('copyTempGraphics', copySpritePngGraphics);
 gulp.task('copySpriteCSS', copySprite);
 gulp.task('endClean', wrapCleanUp);
-gulp.task('icons', gulp.series('beginClean', 'createSprite', 'copySpriteGraphic', 'copySpriteCSS', 'endClean'));
+gulp.task('icons', gulp.series('beginClean', 'createSprite', 'CreatePngFromSvg', 'copyTempGraphics', 'copySpriteCSS', 'endClean'));
 
 gulp.task('watch', function () {
 

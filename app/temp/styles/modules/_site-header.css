@@ -39,7 +39,7 @@
 		transition: transform .3s ease-out;
 		transition: transform .3s ease-out, -webkit-transform .3s ease-out;
 		background-color: #2f5572;
-		padding: .5rem 2.25rem 1.25rem 2.25rem;
+		padding: .625rem 2.25rem 1.25rem 2.25rem;
 	}
 
 	@media (min-width: 768px) {
@@ -51,8 +51,8 @@
 	}
 
 			.site-header--dark .site-header__logo {
-				-webkit-transform: scale(.57);
-				        transform: scale(.57);
+				-webkit-transform: scale(.56);
+				        transform: scale(.56);
 			}
 	}
 
