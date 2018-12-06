@@ -2,19 +2,19 @@ var gulp = require('gulp'),
 	modernizr = require('gulp-modernizr'),
 
 	paths = {
-		pcss: './app/assets/styles/**/*.css',
-		appJs: './app/assets/scripts/**/*.js',
-		scriptsTempFold: './app/temp/scripts/'
+		assetsStylesPcssFiles: './app/assets/styles/**/*.css',
+		assetsScriptsJsFiles: './app/assets/scripts/**/*.js',
+		tempScriptsFold: './app/temp/scripts/'
 	};
 
 function modernizrInit(done) {
-	return gulp.src([paths.pcss, paths.appJs])
+	return gulp.src([paths.assetsStylesPcssFiles, paths.assetsScriptsJsFiles])
 		.pipe(modernizr({
 			"options": [
 				"setClasses"
 			]
 		}))
-		.pipe(gulp.dest(paths.scriptsTempFold));
+		.pipe(gulp.dest(paths.tempScriptsFold));
 	done();
 }
 

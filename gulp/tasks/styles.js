@@ -9,31 +9,25 @@ var gulp = require('gulp'),
 	hexrgba = require('postcss-hexrgba'),
 
 	paths = {
-	    pcss: './app/assets/styles/**/*.css',
-	    css:  './app/temp/styles/'//,
+	    assetsStylesPcssFiles: './app/assets/styles/**/*.css',
+	    tempStylesFold:  './app/temp/styles/'
 	    //html: './path_to_theme/templates/*.tpl.php'
 	};
 
 function stylesInit(done) {
-	return gulp.src(paths.pcss)
+	return gulp.src(paths.assetsStylesPcssFiles)
 		.pipe(postcss([cssImport, mixins, cssvars, nested, hexrgba, autoprefixer]))
-		.pipe(gulp.dest(paths.css))
+		.pipe(gulp.dest(paths.tempStylesFold))
 		.pipe(browserSync.stream());
 	done();
 }
 
 function stylesInject(done) {
-	return gulp.src(paths.css + 'styles.css')
+	return gulp.src(paths.tempStylesFold + 'styles.css')
 		.pipe(browserSync.stream());
 	done();
 }
 
 gulp.task('cssCompile', stylesInit);
 gulp.task('cssInject', stylesInject);
-gulp.task('styles', gulp.series('cssCompile', 'cssInject', (done) => {done();})());
-
-//gulp.task('styles', gulp.series('cssCompile', 'cssInject'));
-//gulp.task('styles', gulp.series('cssCompile', gulp.parallel('cssInject')));
-//gulp.task('styles', gulp.series(stylesInit, gulp.parallel(stylesInject)));
-
-//gulp.task('cssInject', gulp.series('styles', injectInit, (done) => {done();})());
+gulp.task('styles', gulp.series('cssCompile', 'cssInject'));

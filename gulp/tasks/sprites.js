@@ -32,51 +32,51 @@ var gulp = require('gulp'),
 	},
 
 	paths = {
-	    svgImg: './app/assets/images/icons/**/*.svg',
-	    spriteTempFold: './app/temp/sprite',
-	    spriteCSS: './app/temp/sprite/css/*.css',
-	    modules: './app/assets/styles/modules',
-	    spriteTempImg: './app/temp/sprite/css/**/*.svg',
-	    pngTempFold: './app/temp/sprite/css/',
-	    pngTempImg: './app/temp/sprite/css/*.png',
-	    graphicsTempImg: './app/temp/sprite/css/**/*.{svg,png}',
-	    spriteImgFold: './app/assets/images/sprites'
+	    assetsImgsIconsSfSvgFiles: './app/assets/images/icons/**/*.svg',
+	    tempSpriteFold: './app/temp/sprite',
+	    tempSpriteCssFiles: './app/temp/sprite/css/*.css',
+	    assetsStylesModulesSf: './app/assets/styles/modules',
+	    tempSpriteSvgFiles: './app/temp/sprite/css/**/*.svg',
+	    tempSpriteGraphicsFold: './app/temp/sprite/css/',
+	    tempSpritePngFiles: './app/temp/sprite/css/*.png',
+	    tempSpriteGraphicsFiles: './app/temp/sprite/css/**/*.{svg,png}',
+	    assetsImgsSpriteSfold: './app/assets/images/sprites'
 	};
 
 function cleanInit(done) {
-	return del([paths.spriteTempFold, paths.spriteImgFold]);
+	return del([paths.tempSpriteFold, paths.assetsImgsSpriteSfold]);
 	done();
 }
 
 function spriteInit(done) {
-	return gulp.src(paths.svgImg)
+	return gulp.src(paths.assetsImgsIconsSfSvgFiles)
 		.pipe(svgSprite(config))
-		.pipe(gulp.dest(paths.spriteTempFold));
+		.pipe(gulp.dest(paths.tempSpriteFold));
 	done();
 }
 
 function pngInit(done) {
-	return gulp.src(paths.spriteTempImg)
+	return gulp.src(paths.tempSpriteSvgFiles)
 		.pipe(svg2png())
-		.pipe(gulp.dest(paths.pngTempFold));
+		.pipe(gulp.dest(paths.tempSpriteGraphicsFold));
 	done();
 }
 
 function copySpritePngGraphics(done) {
-	return gulp.src(paths.graphicsTempImg)
-		.pipe(gulp.dest(paths.spriteImgFold));
+	return gulp.src(paths.tempSpriteGraphicsFiles)
+		.pipe(gulp.dest(paths.assetsImgsSpriteSfold));
 	done();
 }
 
 function copySprite(done) {
-	return gulp.src(paths.spriteCSS)
+	return gulp.src(paths.tempSpriteCssFiles)
 		.pipe(rename('_sprite.css'))
-		.pipe(gulp.dest(paths.modules));
+		.pipe(gulp.dest(paths.assetsStylesModulesSf));
 	done();
 }
 
 function wrapCleanUp(done) {
-	return del(paths.spriteTempFold);
+	return del(paths.tempSpriteFold);
 	done();
 }
 
